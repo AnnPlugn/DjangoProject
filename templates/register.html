@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #e0f2f1, #b2ebf2);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <form method="post">
+            {% csrf_token %}
+            <button type="button" class="btn btn-primary btn-registration" data-bs-toggle="modal" data-bs-target="#ModalReg">
+                Registration
+            </button>
+            <div class="modal fade" id="ModalReg" tabindex="-1" aria-labelledby="exampleModalLabelReg" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabelReg">Signup (Form)</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="login">Логин:</label>
+                            <input type="text" id="login" name="username" placeholder="Username"><br><br>
+
+                            <label for="email">Почта:</label>
+                            <input type="email" id="email" name="email" placeholder="Email"><br><br>
+
+                            <label for="password">Пароль:</label>
+                            <input type="password" id="password" name="password" placeholder="Password"><br><br>
+
+                            <label for="confirm-password">Подтверждение пароля:</label>
+                            <input type="password" id="confirm-password" name="confirm-password"><br><br>
+
+                            <label for="status">Статус персонала:</label>
+                            <select name="status" id="status">
+                                <option value="regular">Обычный</option>
+                                <option value="admin">Администратор</option>
+                            </select><br><br>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

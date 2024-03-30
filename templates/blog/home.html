@@ -1,0 +1,19 @@
+{%  extends 'blog/base.html' %}
+
+{% block content %}
+    {% for post in page_obj %}
+        <div style="margin-top: 1%">
+            <div class="post-entry">
+                <div class="bg-image card shadow-1-strong"
+                     style="background: radial-gradient(circle, rgba(225,94,141,1) 37%, rgba(107,7,50,1) 75%, rgba(105,7,49,1) 82%, rgba(74,10,37,1) 95%);">
+                    <div style="margin-left: 47%">
+                        <h2 style="color: white;">{{ post.title }}</h2>
+                        <p style="color: white;">{{ post.description }}</p>
+                        <p style="color: white;">{{ post.author }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+{% endblock %}
