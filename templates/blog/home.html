@@ -1,5 +1,5 @@
-{%  extends 'blog/base.html' %}
-
+{% extends 'blog/base.html' %}
+{% load i18n %}
 {% block content %}
     {% for post in page_obj %}
         <div style="margin-top: 1%">
@@ -14,6 +14,5 @@
                 </div>
             </div>
         </div>
-
     {% endfor %}
 {% endblock %}

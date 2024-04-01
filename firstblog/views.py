@@ -1,12 +1,15 @@
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.utils.translation import gettext as _
+from django.core.paginator import Paginator
+import time
 from django.views.generic import ListView, TemplateView
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from googletrans import Translator
+
 from .models import Post
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import redirect
 from django.views import View
 from django.shortcuts import render
-
 
 class BlogListView(ListView):
     model = Post
@@ -62,3 +65,4 @@ def post_list(request):
     page = request.GET.get('page')
     page_obj = paginator.get_page(page)
     return render(request, 'blog/home.html', {'page_obj': page_obj})
+

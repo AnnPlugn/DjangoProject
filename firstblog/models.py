@@ -20,4 +20,3 @@ class Post(models.Model):
         verbose_name = 'Запись'
         verbose_name_plural = 'Записи'
 
-

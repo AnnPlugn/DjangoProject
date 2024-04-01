@@ -23,7 +23,6 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/">Главная</a>
-
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/about">О блоге</a>
@@ -40,11 +39,26 @@
                                 </li>
                                 <li><a class="dropdown-item" href="/imput">Обучение</a></li>
                             </ul>
+                        </li>
                         <li><a href="{% url 'admin:index' %}" style="color: green; padding-left: 20px">Админ панель</a></li>
+                        <div id="google_translate_element {margin-top: 20px;}"></div>
+
+                        <script type="text/javascript">
+                            function googleTranslateElementInit() {
+                                new google.translate.TranslateElement({
+                                    pageLanguage: 'ru',
+                                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                                }, 'google_translate_element');
+                            }
+                        </script>
+
+                        <script type="text/javascript"
+                                src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+                        </script>
                     </ul>
                     <div class = "d-flex">
                         <button onclick="location.href='{% url 'login' %}'" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-right: 10px">Sign in</button>
-                        <button onclick="location.href='{% url 'logout' %}'" class="btn btn-outline-danger" >Sign out</button>
+                        <button onclick="location.href='{% url 'logout' %}'" class="btn btn-outline-danger">Sign out</button>
                         <button onclick="location.href='{% url 'register' %}'" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalReg" style="margin-right: 10px; margin-left: 10px;">Register</button>
                     </div>
                 </div>
