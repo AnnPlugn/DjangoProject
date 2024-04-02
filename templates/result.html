@@ -1,0 +1,42 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div style="margin-top: 1%">
+        <div class="container-fluid">
+            <div class="row align-items-start">
+                <div class="col">
+                    <div class="bg-image card shadow-1-strong"
+                         style="background: linear-gradient(90deg, rgba(201,173,232,1) 37%, rgba(200,174,231,1) 38%, rgba(153,242,176,1) 71%);">
+                        <div class="card-body text-white">
+                            <button id="executeFunctionButton">Обучить модель полиномной регрессии</button>
+                            <p id="message"></p>
+                            <img id="resultImage" style="display: none;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function train_polynomial_regression_model() {
+        // Ваш код для обучения модели и получения пути к изображению с результатами
+        let image_path = '{% static "imagepolinom.png" %}'; // Пример пути к изображению
+
+        // Отображение изображения с результатами
+        document.getElementById('resultImage').src = image_path;
+        document.getElementById('resultImage').style.display = 'block';
+
+        // Отображение сообщения об успешной работе функции
+        document.getElementById('message').innerText = 'Функция успешно выполнена!';
+    }
+
+    document.getElementById('executeFunctionButton').addEventListener('click', function() {
+        train_polynomial_regression_model();
+    });
+    </script>
+</body>
+
+</html>
+{% endblock content %}

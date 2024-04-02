@@ -1,19 +1,21 @@
-from django.utils.translation import gettext as _
+
 from django.core.paginator import Paginator
 import time
 from django.views.generic import ListView, TemplateView
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from googletrans import Translator
 
+from .polinomregression import train_polynomial_regression_model
 from .models import Post
 from django.shortcuts import redirect
 from django.views import View
 from django.shortcuts import render
 
+
 class BlogListView(ListView):
     model = Post
     template_name = 'blog/home.html'
+
 
 class PostView(View):
     """"вывод записей"""
@@ -22,13 +24,20 @@ class PostView(View):
         posts = Post.objects.all()
         return render(request, 'blog/home.html', {'post_list': posts})
 
+
 class AboutPageView(TemplateView):
     template_name = 'blog/about.html'
 
+
 class InputPageView(TemplateView):
     template_name = 'blog/imput.html'
+
+class PolinomView(TemplateView):
+    template_name = 'result.html'
+
 def home(request):
     return render(request, 'home.html')
+
 
 def register(request):
     if request.method == 'POST':
@@ -44,6 +53,7 @@ def register(request):
             return redirect('home')  # Перенаправление на административную панель
     return render(request, 'register.html')
 
+
 def login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -54,9 +64,11 @@ def login(request):
             return redirect('home')  # Перенаправление на административную панель
     return render(request, 'login.html')
 
+
 def logout(request):
     auth_logout(request)
     return redirect('home')
+
 
 def post_list(request):
     posts = Post.objects.all()
@@ -65,4 +77,6 @@ def post_list(request):
     page = request.GET.get('page')
     page_obj = paginator.get_page(page)
     return render(request, 'blog/home.html', {'page_obj': page_obj})
+
+
 
