@@ -1,16 +1,18 @@
 
 from django.core.paginator import Paginator
 import time
+
+from django.http import JsonResponse
 from django.views.generic import ListView, TemplateView
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-
+from firstblog.neyronka import train_xgboost
 from .polinomregression import train_polynomial_regression_model
 from .models import Post
 from django.shortcuts import redirect
 from django.views import View
 from django.shortcuts import render
-
+from firstblog.gradient import train_sql, visualize_sql
 
 class BlogListView(ListView):
     model = Post
@@ -35,6 +37,21 @@ class InputPageView(TemplateView):
 class PolinomView(TemplateView):
     template_name = 'result.html'
 
+class XGBoostTrainView(View):
+    def get(self, request):
+        result = train_xgboost()
+        return JsonResponse(result)
+
+class GradientTrainView(View):
+    def get(self, request):
+        result = train_sql()
+        return JsonResponse(result)
+class GradientTrainView(View):
+    def get(self, request):
+
+        train_result = train_sql()
+        res = visualize_sql()
+        return JsonResponse(train_result)
 def home(request):
     return render(request, 'home.html')
 

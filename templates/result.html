@@ -13,6 +13,14 @@
                             <p id="message"></p>
                             <img id="resultImage" style="display: none;">
                         </div>
+                        <div class="card-body text-white">
+                             <button id="executeFunctionButton2">Обучить модель градиентного бустинга</button>
+                             <p id="message2"></p>
+                        </div>
+                        <div class="card-body text-white">
+                             <button id="executeFunctionButton1">Обучить модель XGBoost</button>
+                             <p id="message1"></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -20,23 +28,52 @@
     </div>
 
     <script>
-    function train_polynomial_regression_model() {
-        // Ваш код для обучения модели и получения пути к изображению с результатами
-        let image_path = '{% static "imagepolinom.png" %}'; // Пример пути к изображению
+        function train_polynomial_regression_model() {
+            // Ваш код для обучения модели полиномиальной регрессии и получения пути к изображению с результатами
+            let image_path = '{% static "imagepolinom.png" %}'; // Пример пути к изображению
 
-        // Отображение изображения с результатами
-        document.getElementById('resultImage').src = image_path;
-        document.getElementById('resultImage').style.display = 'block';
+            // Отображение изображения с результатами
+            document.getElementById('resultImage').src = image_path;
+            document.getElementById('resultImage').style.display = 'block';
 
-        // Отображение сообщения об успешной работе функции
-        document.getElementById('message').innerText = 'Функция успешно выполнена!';
-    }
+            // Отображение сообщения об успешной работе функции
+            document.getElementById('message').innerText = 'Функция успешно выполнена!';
+        }
 
-    document.getElementById('executeFunctionButton').addEventListener('click', function() {
-        train_polynomial_regression_model();
-    });
+        document.getElementById('executeFunctionButton').addEventListener('click', function() {
+            train_polynomial_regression_model();
+        });
+        function train_sql() {
+            fetch('/train_sql')
+                .then(response => response.json())
+                .then(data => {
+                    let image_path = '{% static "gradient.png" %}'; // Пример пути к изображению
+
+                    document.getElementById('resultImage').src = image_path;
+                    document.getElementById('resultImage').style.display = 'block';
+
+                    document.getElementById('message2').innerText = data.message;
+                })
+                .catch(error => console.error('Ошибка:', error));
+        }
+
+        document.getElementById('executeFunctionButton2').addEventListener('click', function() {
+            train_sql();
+        });
+        function train_xgboost() {
+            fetch('/train_xgboost')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('message1').innerText = data.message;
+                })
+                .catch(error => console.error('Ошибка:', error));
+        }
+
+        document.getElementById('executeFunctionButton1').addEventListener('click', function() {
+            train_xgboost();
+        });
     </script>
-</body>
 
+</body>
 </html>
 {% endblock content %}

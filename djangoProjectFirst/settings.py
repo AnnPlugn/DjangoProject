@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'firstblog.apps.FirstblogConfig',
+    'csvimport.app.CSVImportConf',
 ]
 
 MIDDLEWARE = [
@@ -77,6 +78,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'second_db': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_mysql_db',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 

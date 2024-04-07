@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import pandas as pd
+import pymysql
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
@@ -14,6 +15,7 @@ import joblib
 def load_data():
     path = os.path.join('C:/Users/aplyg/PycharmProjects/djangoProjectFirst/static/housing.csv')
     df = pd.read_csv(path)
+
     df.dropna(inplace=True)
     return df
 def visualize_results(y_true, y_pred):
@@ -30,8 +32,14 @@ def visualize_results(y_true, y_pred):
     return 'C:/Users/aplyg/PycharmProjects/djangoProjectFirst/static/imagepolinom.png'
 
 def train_polynomial_regression_model():
-    df = load_data()
-
+    conn = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='root',
+        database='django_mysql_db'
+    )
+    query = "SELECT longitude, latitude, housing_median_age, total_rooms, total_bedrooms, population, households, median_income, median_house_value FROM firstblog_housingdata"
+    df = pd.read_sql(query, conn)
     X = df[['longitude', 'latitude', 'housing_median_age', 'total_rooms', 'total_bedrooms', 'population', 'households', 'median_income']]
     y = df['median_house_value']
 
