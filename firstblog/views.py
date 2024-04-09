@@ -59,14 +59,20 @@ def home(request):
 def register(request):
     if request.method == 'POST':
         username = request.POST.get('username')
-        password = request.POST.get('password')
         email = request.POST.get('email')
-        user = User.objects.create_user(username=username, password=password, email=email)
-        if request.POST.get('status') == 'admin':
-            user.groups.add(Group.objects.get(name='clients'))
-            return redirect('admin:index')
-        else:
-            user.groups.add(Group.objects.get(name='Авторы'))
+        password = request.POST.get('password')
+
+        # Validate form data
+        if not username or not email or not password:
+            return render(request, 'register.html', {'error': 'Please fill in all fields'})
+
+        # Ensure password is properly hashed
+        user = User.objects.create_user(username=username, email=email)
+        user.set_password(password)
+        user.save()
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            auth_login(request, user)
             return redirect('home')  # Перенаправление на административную панель
     return render(request, 'register.html')
 
