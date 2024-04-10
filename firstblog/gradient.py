@@ -1,10 +1,8 @@
 import os
-
-import pymysql
-import os
 import time
 import numpy as np
 import pandas as pd
+import pymysql
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 import tensorflow as tf
@@ -12,6 +10,7 @@ from keras.models import Sequential
 from keras.layers import LSTM, Dense
 from keras.callbacks import ModelCheckpoint
 import matplotlib.pyplot as plt
+
 def load_and_prepare_data_mysql(time_step=100):
     conn = pymysql.connect(
         host='localhost',
@@ -34,11 +33,9 @@ def load_and_prepare_data_mysql(time_step=100):
         Y.append(scaled_features[i + time_step, 0])
     return np.array(X), np.array(Y)
 
-
 def predict_sql(model, X_test):
     predictions = model.predict(X_test)
     return predictions
-
 
 def plot_results(predictions, y_test):
     plt.figure(figsize=(12, 6))
@@ -51,9 +48,8 @@ def plot_results(predictions, y_test):
     plt.savefig('C:/Users/aplyg/PycharmProjects/djangoProjectFirst/static/gradient.png')
     return 'C:/Users/aplyg/PycharmProjects/djangoProjectFirst/static/gradient.png'
 
-
 def train_sql():
-    file_path = "C:\\Users\\aplyg\\PycharmProjects\\djangoProjectFirst\\firstblog\\weights.keras"
+    file_path = "C:/Users/aplyg/PycharmProjects/djangoProjectFirst/firstblog/weights.keras"
 
     if os.path.exists(file_path):
         result = {
@@ -86,7 +82,6 @@ def train_sql():
         visualize_sql()
         return result
 
-
 def visualize_sql():
     time_step = 100
     X, y = load_and_prepare_data_mysql(time_step)
@@ -102,9 +97,4 @@ def visualize_sql():
     predictions = predict_sql(model, X_test)
 
     plot_results(predictions, y_test)
-
-
-if __name__ == '__main__':
-    train_result = train_sql()
-    print(train_result)
 

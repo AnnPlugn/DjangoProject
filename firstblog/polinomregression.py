@@ -29,7 +29,7 @@ def visualize_results(y_true, y_pred):
     plt.xlim(0, 450000)
     plt.ylim(0, 450000)
     plt.savefig('C:/Users/aplyg/PycharmProjects/djangoProjectFirst/static/imagepolinom.png')
-    return 'C:/Users/aplyg/PycharmProjects/djangoProjectFirst/static/imagepolinom.png'
+    return
 
 def train_polynomial_regression_model():
     conn = pymysql.connect(
@@ -58,8 +58,7 @@ def train_polynomial_regression_model():
 
     X_test_poly = poly.transform(X_test)
     y_pred = model.predict(X_test_poly)
-    image_path = visualize_results(y_test, y_pred)
+    visualize_results(y_test, y_pred)
 
     return 'Модель успешно обучена и результаты визуализированы'
 
-train_polynomial_regression_model()

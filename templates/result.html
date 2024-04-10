@@ -64,9 +64,13 @@
             fetch('/train_xgboost')
                 .then(response => response.json())
                 .then(data => {
+                    let image_path1 = '{% static "pik1.png" %}';
+                    document.getElementById('resultImage').src = image_path1;
+                    document.getElementById('resultImage').style.display = 'block';
                     document.getElementById('message1').innerText = data.message;
                 })
                 .catch(error => console.error('Ошибка:', error));
+
         }
 
         document.getElementById('executeFunctionButton1').addEventListener('click', function() {
