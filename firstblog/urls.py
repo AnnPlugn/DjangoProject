@@ -1,4 +1,4 @@
-from .views import BlogListView, AboutPageView, InputPageView, PolinomView, XGBoostTrainView, GradientTrainView
+from .views import PolinomTrainView, AboutPageView, InputPageView, PolinomView, XGBoostTrainView, GradientTrainView
 from django.urls import path, include
 from . import views
 
@@ -10,6 +10,7 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
     path('result/', PolinomView.as_view(), name='result'),
+    path('train_polynomial_regression_model/', PolinomTrainView.as_view(), name='train_polynomial_regression_model'),
     path('train_xgboost/', XGBoostTrainView.as_view(), name='train_xgboost'),
     path('train_sql/', GradientTrainView.as_view(), name='train_sql'),
 ]

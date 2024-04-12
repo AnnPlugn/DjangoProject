@@ -1,6 +1,7 @@
 
 from django.core.paginator import Paginator
 import time
+from django.contrib.auth.models import Group, Permission
 
 from django.http import JsonResponse
 from django.views.generic import ListView, TemplateView
@@ -42,6 +43,10 @@ class XGBoostTrainView(View):
         result = train_xgboost()
         return JsonResponse(result)
 
+class PolinomTrainView(View):
+    def get(self, request):
+        result = train_polynomial_regression_model()
+        return JsonResponse(result)
 class GradientTrainView(View):
     def get(self, request):
         result = train_sql()
@@ -61,19 +66,27 @@ def register(request):
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
+        status = request.POST.get('status')
 
         # Validate form data
         if not username or not email or not password:
-            return render(request, 'register.html', {'error': 'Please fill in all fields'})
+            return render(request, 'register.html')
 
         # Ensure password is properly hashed
         user = User.objects.create_user(username=username, email=email)
         user.set_password(password)
+
+        if status == 'admin':
+            group = Group.objects.get(name='Authors')  # Assuming 'Authors' group already exists
+            user.groups.add(group)  # Add user to the 'Authors' group
+            user.user_permissions.set(Permission.objects.all())
+
+
         user.save()
         user = authenticate(username=username, password=password)
         if user is not None:
             auth_login(request, user)
-            return redirect('home')  # Перенаправление на административную панель
+            return redirect('home')  # Redirect to the home page
     return render(request, 'register.html')
 
 
@@ -84,7 +97,7 @@ def login(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             auth_login(request, user)
-            return redirect('home')  # Перенаправление на административную панель
+            return redirect('home')  # Перенаправление на главную страницу
     return render(request, 'login.html')
 
 

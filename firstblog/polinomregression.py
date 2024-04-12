@@ -51,14 +51,20 @@ def train_polynomial_regression_model():
     model = LinearRegression()
     model.fit(X_train_poly, y_train)
 
-    joblib.dump(model, os.path.join('C:/Users/aplyg/PycharmProjects/djangoProjectFirst/static/polynomial_regression_model.pkl'))  # Используйте относительный путь для сохранения модели
-    joblib.dump(poly, os.path.join('C:/Users/aplyg/PycharmProjects/djangoProjectFirst/static/polynomial_features_transformer.pkl'))  # Используйте относительный путь для сохранения трансформера
+    joblib.dump(model, os.path.join('C:/Users/aplyg/PycharmProjects/djangoProjectFirst/static/polynomial_regression_model1.pkl'))  # Используйте относительный путь для сохранения модели
+    joblib.dump(poly, os.path.join('C:/Users/aplyg/PycharmProjects/djangoProjectFirst/static'
+                                   '/polynomial_features_transformer1.pkl'))  # Используйте относительный путь для
+    # сохранения трансформера
 
     print("Модель полиномиальной регрессии успешно обучена и сохранена.")
 
     X_test_poly = poly.transform(X_test)
     y_pred = model.predict(X_test_poly)
     visualize_results(y_test, y_pred)
+    result = {
+        'status': 'success',
+        'message': 'Модель успешно загружена и визуализирована'
+    }
+    return result
 
-    return 'Модель успешно обучена и результаты визуализированы'
 

@@ -29,27 +29,30 @@
 
     <script>
         function train_polynomial_regression_model() {
-            // Ваш код для обучения модели полиномиальной регрессии и получения пути к изображению с результатами
-            let image_path = '{% static "imagepolinom.png" %}'; // Пример пути к изображению
+            fetch('/train_polynomial_regression_model')
+                .then(response => response.text())
+                .then(data => {
+                    let image_path1 = '{% static "imagepolinom.png" %}';// Получение пути к изображению из ответа сервера
 
-            // Отображение изображения с результатами
-            document.getElementById('resultImage').src = image_path;
-            document.getElementById('resultImage').style.display = 'block';
+                    document.getElementById('resultImage').src = image_path1;
+                    document.getElementById('resultImage').style.display = 'block';
 
-            // Отображение сообщения об успешной работе функции
-            document.getElementById('message').innerText = 'Функция успешно выполнена!';
+                    document.getElementById('message2').innerText = 'Модель полиномиальной регрессии обучена успешно';
+                })
+                .catch(error => console.error('Ошибка:', error));
         }
 
-        document.getElementById('executeFunctionButton').addEventListener('click', function() {
+        document.getElementById('executeFunctionButton2').addEventListener('click', function() {
             train_polynomial_regression_model();
         });
+
         function train_sql() {
             fetch('/train_sql')
                 .then(response => response.json())
                 .then(data => {
-                    let image_path = '{% static "gradient.png" %}'; // Пример пути к изображению
+                    let image_path1 = '{% static "gradient.png" %}'; // Получение пути к изображению из ответа сервера
 
-                    document.getElementById('resultImage').src = image_path;
+                    document.getElementById('resultImage').src = image_path1;
                     document.getElementById('resultImage').style.display = 'block';
 
                     document.getElementById('message2').innerText = data.message;
@@ -60,6 +63,7 @@
         document.getElementById('executeFunctionButton2').addEventListener('click', function() {
             train_sql();
         });
+
         function train_xgboost() {
             fetch('/train_xgboost')
                 .then(response => response.json())
@@ -70,7 +74,6 @@
                     document.getElementById('message1').innerText = data.message;
                 })
                 .catch(error => console.error('Ошибка:', error));
-
         }
 
         document.getElementById('executeFunctionButton1').addEventListener('click', function() {

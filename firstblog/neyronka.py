@@ -46,20 +46,13 @@ def train_xgboost():
     history = model.fit(X_train, y_train, epochs=10, batch_size=32, validation_data=(X_test, y_test))
 
     # Визуализация результатов обучения
-    plt.figure(figsize=(12, 6))
 
+    plt.figure(figsize=(8, 4))  # Ширина 8 дюймов, высота 4 дюйма
     plt.subplot(1, 2, 1)
     plt.plot(history.history['loss'], label='train_loss')
     plt.plot(history.history['val_loss'], label='val_loss')
     plt.xlabel('Epochs')
     plt.ylabel('Loss')
-    plt.legend()
-
-    plt.subplot(1, 2, 2)
-    plt.plot(history.history['accuracy'], label='train_accuracy')
-    plt.plot(history.history['val_accuracy'], label='val_accuracy')
-    plt.xlabel('Epochs')
-    plt.ylabel('Accuracy')
     plt.legend()
 
     plt.savefig('C:/Users/aplyg/PycharmProjects/djangoProjectFirst/static/pik1.png')
