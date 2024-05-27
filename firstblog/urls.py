@@ -13,4 +13,5 @@ urlpatterns = [
     path('train_polynomial_regression_model/', PolinomTrainView.as_view(), name='train_polynomial_regression_model'),
     path('train_xgboost/', XGBoostTrainView.as_view(), name='train_xgboost'),
     path('train_sql/', GradientTrainView.as_view(), name='train_sql'),
+    path('create', views.create, name='create')
 ]

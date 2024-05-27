@@ -115,4 +115,16 @@ def post_list(request):
     return render(request, 'blog/home.html', {'page_obj': page_obj})
 
 
+def create(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        author = request.POST.get('author')
+        date = request.POST.get('date')
 
+        post = Post(title=title, description=description, author=author, date=date)
+        post.save()
+
+        return redirect('home')  # Перенаправление на страницу успешного добавления записи
+
+    return render(request, 'blog/create.html')
