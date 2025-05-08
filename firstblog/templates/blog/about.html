@@ -1,0 +1,47 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <h1>О нас</h1>
+        <p class="lead">Мы — команда AI Pharma Agent, создающая интеллектуальные решения для фармацевтической отрасли.</p>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <img src="{% static 'team1.jpg' %}" class="card-img-top" alt="Team Member 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Иван Иванов</h5>
+                        <p class="card-text">Главный разработчик</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <img src="{% static 'team2.jpg' %}" class="card-img-top" alt="Team Member 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Анна Петрова</h5>
+                        <p class="card-text">Data Scientist</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <img src="{% static 'team3.jpg' %}" class="card-img-top" alt="Team Member 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Сергей Сидоров</h5>
+                        <p class="card-text">Менеджер проекта</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <img src="{% static 'team4.jpg' %}" class="card-img-top" alt="Team Member 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Екатерина Смирнова</h5>
+                        <p class="card-text">UX/UI Дизайнер</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

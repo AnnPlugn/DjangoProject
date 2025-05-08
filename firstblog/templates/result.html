@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container text-center">
+        <h1>Результат анализа</h1>
+        <p class="lead">Данные и прогноз цены недвижимости</p>
+        <div class="card shadow-sm p-4 mb-4" style="background-color: #FFF; border: 1px solid #E8ECEF;">
+            {% if data %}
+                <h4>Собранные данные:</h4>
+                <ul>
+                    {% for key, value in data.items %}
+                        <li>{{ key }}: {{ value }}</li>
+                    {% endfor %}
+                </ul>
+                <h4>Предсказанная цена: {{ predicted_price|floatformat:2 }} руб.</h4>
+            {% else %}
+                <p>Нет данных для отображения. Попробуйте отправить запрос с URL.</p>
+            {% endif %}
+        </div>
+        <a href="{% url 'firstblog:home' %}" class="btn btn-primary">Вернуться</a>
+    </div>
+{% endblock %}
