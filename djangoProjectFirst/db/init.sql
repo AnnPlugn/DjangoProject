@@ -1,7 +1,9 @@
-CREATE DATABASE IF NOT EXISTS pharmadb
-    WITH
-    OWNER = 'postgres'
-    ENCODING = 'UTF8'
-    LC_COLLATE = 'ru_RU.UTF-8'
-    LC_CTYPE = 'ru_RU.UTF-8'
-    TEMPLATE = template0;
+CREATE DATABASE pharmdb;
+
+-- Connect to the pharmdb database
+\c pharmdb
+
+-- Log database connection
+DO $$ BEGIN
+    RAISE NOTICE 'Connected to pharmdb';
+END; $$;

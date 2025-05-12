@@ -2,44 +2,42 @@ version: '3.8'
 
 services:
   db:
-    build:
-      context: .
-      dockerfile: Dockerfile.postgres
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: pharmadb
-      PGDATA: /var/lib/postgresql/data/pgdata
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./djangoProjectFirst/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    container_name: postgresdb
+    image: postgres:latest
+    restart: always
     ports:
       - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d pharmadb"]
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME:-postgres} -d postgres"]
       interval: 5s
-      timeout: 5s
-      retries: 5
+      timeout: 10s
+      retries: 10
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${DATABASE_USERNAME:-postgres}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD:-postgres}
+      - POSTGRES_DB=${DATABASE_NAME:-pharmadb}
+    command: ["postgres", "-c", "log_statement=all"]
 
-  app:
+  web:
+    container_name: django
     build:
       context: .
       dockerfile: Dockerfile
-    command: python /app/djangoProjectFirst/manage.py runserver 0.0.0.0:8000
-    environment:
-      - POSTGRES_HOST=db
-      - POSTGRES_PORT=5432
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=pharmadb
+    command: >
+      sh -c "chmod +x /app/entrypoint.sh && /app/entrypoint.sh"
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
     depends_on:
       db:
         condition: service_healthy
     volumes:
       - .:/app
-    ports:
-      - "8000:8000"
-    restart: unless-stopped
 
 volumes:
-  postgres_data:
+  postgres-data:

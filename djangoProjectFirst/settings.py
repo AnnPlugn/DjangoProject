@@ -1,13 +1,14 @@
 import os
 from pathlib import Path
+from .keyconfig import Database, Secrets
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-a7bga2a@j8(yv-1e0&7ordakkb0lkv8a3x-p+l@fp&v-ghf6l@'
+SECRET_KEY = Secrets.SECRET_KEY
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -51,13 +52,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'djangoProjectFirst.wsgi.application'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pharmadb',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',  # Replace with your actual PostgreSQL password
-        'HOST': 'db',
-        'PORT': '5432',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": Database.NAME,
+        "USER": Database.USER,
+        "PASSWORD": Database.PASSWORD,
+        "HOST": Database.HOST,
+        "PORT": Database.PORT,
     }
 }
 

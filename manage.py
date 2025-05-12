@@ -3,9 +3,23 @@
 import os
 import sys
 
+
+def list_directory_contents(path="."):
+    """List all directories and files in the specified path."""
+    print(f"\nCurrent directory: {os.path.abspath(path)}")
+    print("Contents:")
+    for item in os.listdir(path):
+        item_path = os.path.join(path, item)
+        item_type = "directory" if os.path.isdir(item_path) else "file"
+        print(f"- {item} ({item_type})")
+
+
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangoProjectFirst.settings')
+
+    # List directory contents before running Django
+    list_directory_contents()
 
     try:
         from django.core.management import execute_from_command_line
@@ -16,6 +30,7 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
+
 
 if __name__ == '__main__':
     main()
